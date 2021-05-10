@@ -2,13 +2,10 @@
     <div id="app" class="container">
         <h1 class="mb-4">Un quiz ?</h1>
         <b-card
-            header="Quel révolutionnaire et grand orateur a déclaré en 1792 : “De l’audace, encore de l’audace, toujours de l’audace.”"
+            :header="questions[index].question"
             header-tag="header">
             <b-list-group>
-                <b-list-group-item button>Desmoulin</b-list-group-item>
-                <b-list-group-item button>Danton</b-list-group-item>
-                <b-list-group-item button>Robespierre</b-list-group-item>
-                <b-list-group-item button>Saint Just</b-list-group-item>
+                <b-list-group-item button v-for="item in questions[index].answers" :key="item">{{item}}</b-list-group-item>
             </b-list-group>
         </b-card>
     </div>
@@ -17,6 +14,36 @@
 <script>
 export default {
     name: "App",
+    data: function () {
+        return {
+            index: 0,
+            score: 0,
+            questions: [
+                {
+                    question:
+                        "Quel révolutionnaire et grand orateur a déclaré en 1792 : “De l’audace, encore de l’audace, toujours de l’audace.”",
+                    answers: [
+                        "Desmoulin",
+                        "Danton",
+                        "Robespierre",
+                        "Saint Just",
+                    ],
+                    ok: 1,
+                },
+                {
+                    question:
+                        "Dans quel pays peut-on trouver le mont Elbrouz ?",
+                    answers: ["Russie", "Azerbaïdjan", "Géorgie", "Iran"],
+                    ok: 0,
+                },
+                {
+                    question: "Qui a dit “Ich bin ein Berliner” ?",
+                    answers: ["Bismarck", "Reagan", "De Gaulle", "Kennedy"],
+                    ok: 3,
+                },
+            ],
+        };
+    },
 };
 </script>
 
