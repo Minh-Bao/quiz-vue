@@ -5,7 +5,13 @@
             :header="questions[index].question"
             header-tag="header">
             <b-list-group>
-                <b-list-group-item button v-for="item in questions[index].answers" :key="item">{{item}}</b-list-group-item>
+                <b-list-group-item 
+                button 
+                v-for="(item, index) in questions[index].answers" 
+                :key="item"
+                @click="action(index)">
+                    {{item}}
+                </b-list-group-item>
             </b-list-group>
         </b-card>
     </div>
