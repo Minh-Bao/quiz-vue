@@ -14,6 +14,7 @@
                     {{item}}
                 </b-list-group-item>
             </b-list-group>
+            <b-button v-if="fin" @click="recommencer" class="mt-4">Recommencer ! </b-button>
         </b-card>
     </div>
 </template>
@@ -64,6 +65,9 @@ export default {
             }else{
                 this.index++;
             }
+        },
+        recommencer: function() {
+            this.fin = this.index = this.score = 0;
         }
     }
 };
