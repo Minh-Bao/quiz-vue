@@ -1,20 +1,26 @@
 <template>
     <div id="app" class="container">
         <h1 class="mb-4">Un quiz ?</h1>
-        <b-alert v-if="fin" show> Votre score est : {{score}} / {{questions.length}}</b-alert>
-        <b-card
-            :header="questions[index].question"
-            header-tag="header">
+        <b-alert v-if="fin" show>
+            Votre score est : {{ score }} / {{ questions.length }}</b-alert
+        >
+        <b-card :header="questions[index].question" header-tag="header">
             <b-list-group>
-                <b-list-group-item 
-                button 
-                v-for="(item, index) in questions[index].answers" 
-                :key="item"
-                @click="action(index)">
-                    {{item}}
+                <b-list-group-item
+                    button
+                    v-for="(item, index) in questions[index].answers"
+                    :key="item"
+                    @click="action(index)"
+                >
+                    {{ item }}
                 </b-list-group-item>
             </b-list-group>
-            <b-button v-if="fin" @click="recommencer" class="mt-4">Recommencer ! </b-button>
+            <b-button v-if="fin" @click="recommencer" class="mt-4"
+                >Recommencer !
+            </b-button>
+            <b-button v-if="voirReponse && !fin" @click="continuer" class="mt-4"
+                >Continuer !</b-button
+            >
         </b-card>
     </div>
 </template>
@@ -24,6 +30,8 @@ export default {
     name: "App",
     data: function () {
         return {
+            variants: [...Array(4)],
+            voirReponse: false,
             fin: false,
             index: 0,
             score: 0,
@@ -54,22 +62,29 @@ export default {
         };
     },
     methods: {
-        action: function(index) {
-            //test bonne réponse
-            if(index == this.questions[this.index].ok) {
+        action: function (index) {
+            // Test bonne réponse
+            if (index == this.questions[this.index].ok) {
                 this.score++;
+            } else {
+                this.variants[index] = "danger";
             }
-            //Test fin de quiz
-            if(this.index == this.questions.length -1) {
+            this.voirReponse = true;
+            this.variants[this.questions[this.index].ok] = "success";
+            if (this.index == this.questions.length - 1) {
                 this.fin = true;
-            }else{
-                this.index++;
             }
         },
-        recommencer: function() {
-            this.fin = this.index = this.score = 0;
-        }
-    }
+        recommencer: function () {
+            this.voirReponse = this.fin = this.index = this.score = 0;
+            this.variants = [...Array(4)];
+        },
+        continuer: function () {
+            this.voirReponse = false;
+            this.variants = [...Array(4)];
+            this.index++;
+        },
+    },
 };
 </script>
 
