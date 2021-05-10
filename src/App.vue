@@ -1,6 +1,7 @@
 <template>
     <div id="app" class="container">
         <h1 class="mb-4">Un quiz ?</h1>
+        <b-alert v-if="fin" show> Votre score est : {{score}} / {{questions.length}}</b-alert>
         <b-card
             :header="questions[index].question"
             header-tag="header">
@@ -22,6 +23,7 @@ export default {
     name: "App",
     data: function () {
         return {
+            fin: false,
             index: 0,
             score: 0,
             questions: [
@@ -50,6 +52,20 @@ export default {
             ],
         };
     },
+    methods: {
+        action: function(index) {
+            //test bonne réponse
+            if(index == this.questions[this.index].ok) {
+                this.score++;
+            }
+            //Test fin de quiz
+            if(this.index == this.questions.length -1) {
+                this.fin = true;
+            }else{
+                this.index++;
+            }
+        }
+    }
 };
 </script>
 
