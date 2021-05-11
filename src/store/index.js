@@ -6,17 +6,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-      questions: []
+        quizs: []
     },
     mutations: {
-      setData(state, data) {
-        state.questions = data;
-      }
+        setData(state, data) {
+            state.quizs = data;
+        }
     },
     actions: {
-      async getData(context) {
-        let data = (await Axios.get('http://localhost:3000/questions')).data;
-        context.commit("setData", data);
-      }
+        async getData(context) {
+            let data = (await Axios.get('http://localhost:3000/quizs')).data;
+            context.commit("setData", data);
+        }
     }
-  })
+})
